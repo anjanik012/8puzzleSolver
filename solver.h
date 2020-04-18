@@ -8,11 +8,13 @@
 
 #include "game_state.h"
 #include <forward_list>
+#include <unordered_set>
 
 class solver {
 private:
     game_state current_state;
     std::forward_list<char> solution;
+    uint32_t nodes_explored;
 public:
     explicit solver(const game_state &current_state);
     void solve();

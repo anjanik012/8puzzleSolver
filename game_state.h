@@ -21,21 +21,6 @@ private:
     int n_moves;
     char last_move;
     game_state *prev_state;
-    static void swap(int &a, int &b) {
-        int t = a;
-        a = b;
-        b = t;
-    }
-    void set_n_tiles() {
-        n_tiles_out_of_place = 0;
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (grid[i][j] != goal[i][j] && grid[i][j] != 0) {
-                    n_tiles_out_of_place++;
-                }
-            }
-        }
-    }
 public:
     game_state();
     explicit game_state(const std::string &);
@@ -67,6 +52,10 @@ public:
     bool move_right();
 
     char get_last_move() const;
+
+    bool operator==(const game_state &rhs) const;
+
+    bool operator!=(const game_state &rhs) const;
 
     bool operator<(const game_state &rhs) const;
     game_state &operator=(const game_state &);

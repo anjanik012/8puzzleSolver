@@ -11,6 +11,7 @@
  */
 
 game_state::game_state() {
+    grid = {{{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}};
     zero_position.first = zero_position.second = -1;
     n_tiles_out_of_place = -1;
     n_moves = -1;
@@ -19,28 +20,40 @@ game_state::game_state() {
 }
 
 game_state::game_state(const std::string &input_grid) {
+    n_tiles_out_of_place = 0;
     for (int i = 0; i <= 2; ++i) {
         grid[0][i] = input_grid[i] - 48;
+        if (grid[0][i] == 0) {
+            zero_position.first = 0;
+            zero_position.second = i;
+        }
+        if (grid[0][i] != goal[0][i] && grid[0][i] != 0) {
+            n_tiles_out_of_place++;
+        }
     }
     for (int i = 0; i <= 2; ++i) {
         grid[1][i] = input_grid[i + 3] - 48;
+        if (grid[1][i] == 0) {
+            zero_position.first = 1;
+            zero_position.second = i;
+        }
+        if (grid[1][i] != goal[1][i] && grid[1][i] != 0) {
+            n_tiles_out_of_place++;
+        }
     }
     for (int i = 0; i <= 2; ++i) {
         grid[2][i] = input_grid[i + 6] - 48;
-    }
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            if (grid[i][j] == 0) {
-                zero_position.first = i;
-                zero_position.second = j;
-            }
+        if (grid[2][i] == 0) {
+            zero_position.first = 2;
+            zero_position.second = i;
+        }
+        if (grid[2][i] != goal[2][i] && grid[2][i] != 0) {
+            n_tiles_out_of_place++;
         }
     }
-    n_tiles_out_of_place = 0;
     n_moves = 0;
     last_move = '\0';
     prev_state = nullptr;
-    set_n_tiles();
 }
 
 game_state::game_state(const game_state &state) {
@@ -86,13 +99,12 @@ array<array<int, 3>, 3> game_state::get_current_grid() const {
 bool game_state::move_up() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (grid[i - 1][j] == goal[i - 1][j]) {
-        n_tiles_out_of_place++;
-    }
     if (i != 0) {
-        swap(grid[i][j], grid[i - 1][j]);
+        if (grid[i - 1][j] == goal[i - 1][j]) {
+            n_tiles_out_of_place++;
+        }
+        std::swap(grid[i][j], grid[i - 1][j]);
         zero_position.first = i - 1;
-//        set_n_tiles();
         if (grid[i][j] == goal[i][j]) {
             n_tiles_out_of_place--;
         }
@@ -106,13 +118,12 @@ bool game_state::move_up() {
 bool game_state::move_down() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (grid[i + 1][j] == goal[i + 1][j]) {
-        n_tiles_out_of_place++;
-    }
     if (i != 2) {
-        swap(grid[i][j], grid[i + 1][j]);
+        if (grid[i + 1][j] == goal[i + 1][j]) {
+            n_tiles_out_of_place++;
+        }
+        std::swap(grid[i][j], grid[i + 1][j]);
         zero_position.first = i + 1;
-//        set_n_tiles();
         if (grid[i][j] == goal[i][j]) {
             n_tiles_out_of_place--;
         }
@@ -126,13 +137,12 @@ bool game_state::move_down() {
 bool game_state::move_left() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (grid[i][j - 1] == goal[i][j - 1]) {
-        n_tiles_out_of_place++;
-    }
     if (j != 0) {
-        swap(grid[i][j], grid[i][j - 1]);
+        if (grid[i][j - 1] == goal[i][j - 1]) {
+            n_tiles_out_of_place++;
+        }
+        std::swap(grid[i][j], grid[i][j - 1]);
         zero_position.second = j - 1;
-//        set_n_tiles();
         if (grid[i][j] == goal[i][j]) {
             n_tiles_out_of_place--;
         }
@@ -146,13 +156,12 @@ bool game_state::move_left() {
 bool game_state::move_right() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (grid[i][j + 1] == goal[i][j + 1]) {
-        n_tiles_out_of_place++;
-    }
     if (j != 2) {
-        swap(grid[i][j], grid[i][j + 1]);
+        if (grid[i][j + 1] == goal[i][j + 1]) {
+            n_tiles_out_of_place++;
+        }
+        std::swap(grid[i][j], grid[i][j + 1]);
         zero_position.second = j + 1;
-//        set_n_tiles();
         if (grid[i][j] == goal[i][j]) {
             n_tiles_out_of_place--;
         }
@@ -202,6 +211,20 @@ game_state &game_state::operator=(const game_state &rhs) {
     n_moves = rhs.n_moves;
     prev_state = rhs.prev_state;
     return *this;
+}
+
+bool game_state::operator==(const game_state &rhs) const {
+    return grid == rhs.grid &&
+           goal == rhs.goal &&
+           zero_position == rhs.zero_position &&
+           n_tiles_out_of_place == rhs.n_tiles_out_of_place &&
+           n_moves == rhs.n_moves &&
+           last_move == rhs.last_move &&
+           prev_state == rhs.prev_state;
+}
+
+bool game_state::operator!=(const game_state &rhs) const {
+    return !(rhs == *this);
 }
 
 
