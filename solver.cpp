@@ -11,8 +11,6 @@
 
 #include <queue>
 #include <array>
-#include <unordered_set>
-#include <algorithm>
 #include <iostream>
 
 using std::priority_queue;
@@ -55,7 +53,7 @@ void solver::solve() {
 //                p.push(make_pair(paths[0].get_heuristic(), paths[0]));
 //            }
 //        }
-/        if (paths[1].mo-ve_down()) {
+//        if (paths[1].mo-ve_down()) {
 //            auto i = std::find(explored.begin(), explored.end(), paths[1]);
 //            if (i == explored.end() && g_p->get_last_move() != 'U') {
 //                p.push(make_pair(paths[1].get_heuristic(), paths[1]));
@@ -75,8 +73,7 @@ void solver::solve() {
 //        }
         switch (g_p->get_last_move()) {
             case 'U':
-                -if (paths[0].move_up()) {*-----------------------------------------------------------------------------------------------.
-                ...2.**8-
+                if (paths[0].move_up()) {
                     p.push(make_pair(paths[0].get_heuristic(), paths[0]));
                 }
                 if (paths[1].move_left()) {
