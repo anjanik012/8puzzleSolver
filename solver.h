@@ -15,10 +15,16 @@ private:
     game_state current_state;
     std::forward_list<char> solution;
     uint32_t nodes_explored;
+    uint32_t total_moves;
 public:
     explicit solver(const game_state &current_state);
     void solve();
     const std::forward_list<char> &get_solution() const;
+
+    uint32_t get_nodes_explored() const;
+
+    uint32_t get_total_moves() const;
+
 };
 
 #endif //INC_8PUZZLE_SOLVER_H

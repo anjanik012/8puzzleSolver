@@ -13,6 +13,8 @@ int main(int argc, char *argv[]) {
     solver _solver(start_state);
     _solver.solve();
     std::forward_list<char> sol = _solver.get_solution();
+    auto n_moves = _solver.get_total_moves();
+    std:: cout << "Number of moves:-" << n_moves << std::endl;
     for (auto s: sol) {
         std::cout << s << " ";
     }

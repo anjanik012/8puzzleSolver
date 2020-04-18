@@ -12,7 +12,6 @@
 #include <queue>
 #include <array>
 #include <unordered_set>
-#include <iostream>
 
 using std::priority_queue;
 using std::pair;
@@ -21,12 +20,10 @@ using std::array;
 using std::forward_list;
 using std::greater;
 using std::make_pair;
-using std::cout;
-using std::endl;
 using std::move;
 using std::unordered_set;
 
-solver::solver(const game_state &input_state) : current_state(input_state) , nodes_explored(0){
+solver::solver(const game_state &input_state) : current_state(input_state) , nodes_explored(0), total_moves(0){
 }
 
 void solver::solve() {
@@ -42,8 +39,7 @@ void solver::solve() {
         nodes_explored++;
         g_p = new game_state(u.second);
         if (g_p->is_goal_state()) {
-            cout << "Number of moves:" <<g_p->get_n_moves() << endl;
-            cout << "Nodes Explored:" << nodes_explored << endl;
+            total_moves = g_p->get_n_moves();
             break;
         }
         array<game_state, 4> paths;
@@ -88,6 +84,13 @@ const forward_list<char> &solver::get_solution() const {
     return solution;
 }
 
+uint32_t solver::get_nodes_explored() const {
+    return nodes_explored;
+}
+
+uint32_t solver::get_total_moves() const {
+    return total_moves;
+}
 
 
 
