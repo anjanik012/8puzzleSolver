@@ -23,8 +23,11 @@ private:
     game_state *prev_state;
 public:
     game_state();
+
     explicit game_state(const std::string &);
+
     game_state(const game_state &);
+
     game_state(const game_state &, game_state *);
 
     array<array<int, 3>, 3> get_current_grid() const;
@@ -58,8 +61,28 @@ public:
     bool operator!=(const game_state &rhs) const;
 
     bool operator<(const game_state &rhs) const;
+
     game_state &operator=(const game_state &);
 
+
 };
+
+// Object hash
+namespace std {
+    template<>
+    struct hash<game_state> {
+        size_t operator()(const game_state &state) const {
+            std::string val;
+            auto grid = state.get_current_grid();
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    int x = grid[i][j] + 48;
+                    val += x;
+                }
+            }
+            return std::hash<std::string>()(val);
+        }
+    };
+}
 
 #endif

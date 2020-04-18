@@ -99,7 +99,7 @@ array<array<int, 3>, 3> game_state::get_current_grid() const {
 bool game_state::move_up() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (i != 0) {
+    if (i != 0 && last_move != 'D') {
         if (grid[i - 1][j] == goal[i - 1][j]) {
             n_tiles_out_of_place++;
         }
@@ -118,7 +118,7 @@ bool game_state::move_up() {
 bool game_state::move_down() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (i != 2) {
+    if (i != 2 && last_move != 'U') {
         if (grid[i + 1][j] == goal[i + 1][j]) {
             n_tiles_out_of_place++;
         }
@@ -137,7 +137,7 @@ bool game_state::move_down() {
 bool game_state::move_left() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (j != 0) {
+    if (j != 0 && last_move != 'R') {
         if (grid[i][j - 1] == goal[i][j - 1]) {
             n_tiles_out_of_place++;
         }
@@ -156,7 +156,7 @@ bool game_state::move_left() {
 bool game_state::move_right() {
     int i = zero_position.first;
     int j = zero_position.second;
-    if (j != 2) {
+    if (j != 2 && last_move != 'L') {
         if (grid[i][j + 1] == goal[i][j + 1]) {
             n_tiles_out_of_place++;
         }
@@ -214,13 +214,9 @@ game_state &game_state::operator=(const game_state &rhs) {
 }
 
 bool game_state::operator==(const game_state &rhs) const {
-    return grid == rhs.grid &&
-           goal == rhs.goal &&
-           zero_position == rhs.zero_position &&
-           n_tiles_out_of_place == rhs.n_tiles_out_of_place &&
-           n_moves == rhs.n_moves &&
-           last_move == rhs.last_move &&
-           prev_state == rhs.prev_state;
+    return grid[0][0] == rhs.grid[0][0] && grid[0][1] == rhs.grid[0][1] && grid[0][2] == rhs.grid[0][2] &&
+           grid[1][0] == rhs.grid[1][0] && grid[1][1] == rhs.grid[1][1] && grid[1][2] == rhs.grid[1][2] &&
+           grid[2][0] == rhs.grid[2][0] && grid[2][1] == rhs.grid[2][1] && grid[2][2] == rhs.grid[2][2];
 }
 
 bool game_state::operator!=(const game_state &rhs) const {
