@@ -7,14 +7,15 @@
 #include "game_state.h"
 
 /*
- * Constructors including obsolete default constructor.
- */
+ * Default constructor creates the goal state.
+*/
 
 game_state::game_state() {
-    grid = {{{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}};
-    zero_position.first = zero_position.second = -1;
-    n_tiles_out_of_place = -1;
-    n_moves = -1;
+    grid = {{{1, 2, 3}, {4, 5, 6}, {7, 8, 0}}};
+    zero_position.first = 2;
+    zero_position.second = 2;
+    n_tiles_out_of_place = 0;
+    n_moves = 0;
     last_move = '\0';
     prev_state = nullptr;
 }
