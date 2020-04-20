@@ -1,7 +1,7 @@
 //
-// Created by anjani on 10/3/19.
-// This class is represents a game state.
-// These states are modified in order to find the solution.
+// Created by Anjani Kumar <anjanik012@gmail.com> on 10/3/19.
+// This class represents a game state.
+// A state is passed through an operation in order to find the solution.
 //
 
 #ifndef INC_8PUZZLE_GAME_STATE_H

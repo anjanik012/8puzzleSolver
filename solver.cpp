@@ -1,12 +1,7 @@
 //
-// Created by anjani on 10/3/19.
+// Created by Anjani Kumar <anjanik012@gmail.com> on 10/3/19.
 //
 
-/*
- * This class implements the A* search algorithm
- * to find the optimal closed_list for the 8 puzzle game.
- *
- */
 #include "solver.h"
 
 #include <queue>

@@ -1,5 +1,5 @@
 //
-// Created by anjani on 10/3/19.
+// Created by Anjani Kumar <anjanik012@gmail.com> on 10/3/19.
 //
 // This class implements the A* search algorithm with Tiles out of place Heuristic.
 

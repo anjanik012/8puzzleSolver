@@ -1,5 +1,5 @@
 //
-// Created by anjani on 10/3/19.
+// Created by Anjani Kumar <anjanik012@gmail.com> on 10/3/19.
 //
 
 // Implementation of class game_state.
