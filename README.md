@@ -1,6 +1,6 @@
 # 8puzzle Solver
 
-![puzzle](https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40sairamankumar2%2F8-puzzle-problem-aa578104ae15&psig=AOvVaw1XTuFOD5hmj-UsMaUxNOGj&ust=1596460934618000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKj8-NDO_OoCFQAAAAAdAAAAABAD)
+![puzzle](demo.png)
 
 This is a basic api for solving 3x3 boards in  standard C++14. It has two main components:-
 
